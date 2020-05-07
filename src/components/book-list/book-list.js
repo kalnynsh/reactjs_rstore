@@ -20,7 +20,7 @@ class BookList extends Component {
         const { books } = this.props;
 
         return (
-            <ul>
+            <ul className="book-list">
                 {
                     books.map((bookitem) => {
                         return <li key={bookitem.id}><BookListItem book={bookitem} /></li>;
