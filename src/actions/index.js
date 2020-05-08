@@ -1,5 +1,6 @@
 import {
-    BOOKS_LOADED
+    BOOKS_LOADED,
+    BOOKS_REQUESTED
 } from './types';
 
 const booksLoaded = (newBooks) => {
@@ -9,6 +10,13 @@ const booksLoaded = (newBooks) => {
     }
 };
 
+const booksRequested = () => {
+    return {
+        type: BOOKS_REQUESTED,
+    }
+};
+
 export {
-    booksLoaded
+    booksLoaded,
+    booksRequested,
 };
