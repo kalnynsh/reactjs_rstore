@@ -1,5 +1,6 @@
 .shop-header {
     border-bottom: 1px solid #e5e5e5;
+    margin-top: 0.75rem;
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
@@ -14,6 +15,7 @@
 .shop-header .shopping-cart {
     align-self: center;
     font-size: 1.3rem;
+    margin-top: 0.65rem;
     padding-right: 1rem;
 }
 
