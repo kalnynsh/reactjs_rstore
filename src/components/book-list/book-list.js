@@ -5,11 +5,7 @@ import { withBookstoreService } from '../hoc';
 import { compose } from '../../utils';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import {
-    booksLoaded,
-    booksRequested,
-    booksError,
-} from '../../actions';
+import { fetchBooks } from '../../actions';
 
 import './book-list.css';
 
@@ -54,17 +50,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     const { bookstoreService } = ownProps;
 
     return {
-        fetchBooks: () => {
-            dispatch(booksRequested());
-
-            bookstoreService.getBooks()
-                .then((data) => {
-                    dispatch( booksLoaded(data) );
-                })
-                .catch((error) => {
-                    dispatch( booksError(error) );
-                });
-        },
+        fetchBooks: fetchBooks(bookstoreService, dispatch),
     };
 };
 
