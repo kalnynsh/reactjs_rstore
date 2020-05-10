@@ -1,3 +1,7 @@
+# Demo Books Store App. React with Redux
+
+The App on development.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
