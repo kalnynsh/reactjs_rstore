@@ -9,7 +9,19 @@ import { fetchBooks } from '../../actions';
 
 import './book-list.css';
 
-class BookList extends Component {
+const BookList = ({ books }) => {
+    return (
+        <ul className="book-list">
+            {
+                books.map((item) => {
+                    return <li key={bookitem.id}><BookListItem book={item} /></li>;
+                })
+            }
+        </ul>
+    );
+}
+
+class BookListContainer extends Component {
 
     componentDidMount() {
         this.props.fetchBooks();
@@ -26,15 +38,7 @@ class BookList extends Component {
             return <Spinner />;
         }
 
-        return (
-            <ul className="book-list">
-                {
-                    books.map((bookitem) => {
-                        return <li key={bookitem.id}><BookListItem book={bookitem} /></li>;
-                    })
-                }
-            </ul>
-        );
+        return <BookList books={books} />;
     }
 }
 
@@ -57,4 +61,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default compose(
     withBookstoreService(),
     connect(mapStateToProps, mapDispatchToProps)
-)(BookList);
+)(BookListContainer);
