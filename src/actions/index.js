@@ -2,6 +2,7 @@ import {
     FETCH_BOOKS_SUCCESS,
     FETCH_BOOKS_REQUEST,
     FETCH_BOOKS_FAILURE,
+    BOOK_ADDED_TO_CART,
 } from './types';
 
 const booksLoaded = (newBooks) => {
@@ -36,6 +37,17 @@ const fetchBooks = (bookstoreService, dispatch) => () => {
         });
 };
 
+const bookAddedToCart = (bookId) => {
+    return {
+        type: BOOK_ADDED_TO_CART,
+        payload: bookId,
+    };
+};
+
 export {
+    booksLoaded,
+    booksRequested,
+    booksError,
     fetchBooks,
+    bookAddedToCart,
 };
