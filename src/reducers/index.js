@@ -13,6 +13,39 @@ const initialState = {
     orderTotal: 187,
 };
 
+const updateItem = (book, item = {}) => {
+    // If item = {}, use defaults { id = book.id, ...}
+    const {
+        id = book.id,
+        count = 0,
+        title = book.title,
+        subtotal = 0
+    } = item;
+
+    return {
+        id,
+        title,
+        count: count + 1,
+        subtotal: subtotal + book.price,
+    };
+};
+
+const updateCartItems = (cartItems, item, idx) => {
+
+    if (idx < 0) {
+        return [
+            ...cartItems,
+            item,
+        ];
+    }
+
+    return [
+        ...cartItems.slice(0, idx),
+        item,
+        ...cartItems.slice(idx + 1)
+    ];
+};
+
 const reducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -44,19 +77,19 @@ const reducer = (state = initialState, action) => {
         case BOOK_ADDED_TO_CART:
             const bookId = action.payload;
             const book = state.books.find((item) => item.id === bookId);
-            const newItem = {
-                id: book.id,
-                name: book.title,
-                count: 1,
-                subtotal: book.price,
-            };
+            const itemIndex = state.cartItems.findIndex(({id}) => id === bookId);
+
+            const item = state.cartItems[itemIndex];  // -1, item=undefined
+
+            const newItem = updateItem(book, item);
 
             return {
                 ...state,
-                cartItems: [
-                    ...state.cartItems,
-                    newItem,
-                ],
+                cartItems: updateCartItems(
+                                state.cartItems,
+                                newItem,
+                                itemIndex
+                            ),
             };
 
         default:
