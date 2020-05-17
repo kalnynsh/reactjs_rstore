@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import BookListItem from '../book-list-item';
 import { connect } from 'react-redux';
+
 import { withBookstoreService } from '../hoc';
 import { compose } from '../../utils';
 import Spinner from '../spinner';
+
 import ErrorIndicator from '../error-indicator';
 import { fetchBooks, bookAddedToCart } from '../../actions';
+import { bindActionCreators } from 'redux';
 
 import './book-list.css';
 
@@ -55,13 +58,27 @@ const mapStateToProps = ( { bookList: {books, loading, error} } ) => {
     };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+/*
+const mapDispatchToPropsOld = (dispatch, ownProps) => {
     const { bookstoreService } = ownProps;
 
     return {
         fetchBooks: fetchBooks(bookstoreService, dispatch),
         onAddedToCartDone: (id) => dispatch(bookAddedToCart(id)),
     };
+};
+*/
+
+/* With Thunk */
+const mapDispatchToProps = (dispatch, ownProps) => {
+    const { bookstoreService } = ownProps;
+
+    return bindActionCreators({
+        fetchBooks: fetchBooks(bookstoreService),
+        onAddedToCartDone: bookAddedToCart,
+    },
+        dispatch
+    );
 };
 
 export default compose(

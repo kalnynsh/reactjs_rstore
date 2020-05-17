@@ -27,7 +27,22 @@ const booksError = (error) => {
     }
 };
 
-const fetchBooks = (bookstoreService, dispatch) => () => {
+/*
+const fetchBooksOld = (bookstoreService, dispatch) => () => {
+    dispatch(booksRequested());
+
+    bookstoreService.getBooks()
+        .then((data) => {
+            dispatch( booksLoaded(data) );
+        })
+        .catch((error) => {
+            dispatch( booksError(error) );
+        });
+};
+*/
+
+/* Thunk functions` version  */
+const fetchBooks = (bookstoreService) => () => (dispatch) => {
     dispatch(booksRequested());
 
     bookstoreService.getBooks()
